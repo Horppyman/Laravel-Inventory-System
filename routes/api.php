@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\v1\AuthController;
+use App\Http\Controllers\v1\EmployeeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,5 +31,11 @@ Route::group([
     Route::post('/v1/logout', [AuthController::class, 'logout']);
     Route::post('/v1/refresh', [AuthController::class, 'refresh']);
     Route::get('/v1/me', [AuthController::class, 'me']);
-    
+                                             
 });
+
+Route::get('/v1/employees', [EmployeeController::class, 'index']);
+Route::get('/v1/employee/{id}', [EmployeeController::class, 'show']);
+Route::post('/v1/employee', [EmployeeController::class, 'store']);
+Route::delete('/v1/delete-employee/{id}', [EmployeeController::class, 'destroy']);
+Route::post('/v1/update-employee/{id}', [EmployeeController::class, 'update']);
