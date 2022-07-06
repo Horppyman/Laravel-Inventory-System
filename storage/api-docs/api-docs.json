@@ -5,7 +5,7 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/v1/login": {
+        "/api/v1/login": {
             "post": {
                 "tags": [
                     "User Auth"
@@ -33,10 +33,6 @@
                                         "type": "string",
                                         "format": "password",
                                         "example": "PassWord12345"
-                                    },
-                                    "persistent": {
-                                        "type": "boolean",
-                                        "example": "true"
                                     }
                                 },
                                 "type": "object"
@@ -64,7 +60,7 @@
                 }
             }
         },
-        "/v1/register": {
+        "/api/v1/register": {
             "post": {
                 "tags": [
                     "User Auth"
@@ -98,10 +94,6 @@
                                         "type": "string",
                                         "format": "password",
                                         "example": "PassWord12345"
-                                    },
-                                    "persistent": {
-                                        "type": "boolean",
-                                        "example": "true"
                                     }
                                 },
                                 "type": "object"
@@ -125,6 +117,281 @@
                                 }
                             }
                         }
+                    }
+                }
+            }
+        },
+        "/api/v1/employees": {
+            "get": {
+                "tags": [
+                    "Employees"
+                ],
+                "summary": "Get All Employees",
+                "description": "Get All Employees",
+                "operationId": "getEmployees",
+                "responses": {
+                    "422": {
+                        "description": "Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Server Error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/employee": {
+            "post": {
+                "tags": [
+                    "Employees"
+                ],
+                "summary": "Add Employee",
+                "description": "Add Employee",
+                "operationId": "createEmployee",
+                "requestBody": {
+                    "description": "Pass employee credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "phone",
+                                    "sallary",
+                                    "address",
+                                    "nid"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "Your Name"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "user1@mail.com"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "08005050505"
+                                    },
+                                    "sallary": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "50000"
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "I Live on mars"
+                                    },
+                                    "nid": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "EMID1234"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "422": {
+                        "description": "Wrong credentials response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Check all credentials and try again."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/employee/{id}": {
+            "get": {
+                "tags": [
+                    "Employees"
+                ],
+                "summary": "Get employee information",
+                "description": "Returns employee data",
+                "operationId": "getEmployeeById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Employee id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/update-employee/{id}": {
+            "post": {
+                "tags": [
+                    "Employees"
+                ],
+                "summary": "Get employee information",
+                "description": "Returns employee data",
+                "operationId": "updateSingleEmployee",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Employee id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Pass employee credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "phone",
+                                    "sallary",
+                                    "address",
+                                    "nid"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "Your Name"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "user1@mail.com"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "08005050505"
+                                    },
+                                    "sallary": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "50000"
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "I Live on mars"
+                                    },
+                                    "nid": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "EMID1234"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Project"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/v1/delete-employee/{id}": {
+            "delete": {
+                "tags": [
+                    "Employees"
+                ],
+                "summary": "Delete existing employee",
+                "description": "Deletes a record and returns a status code ",
+                "operationId": "deleteEmployee",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Employee id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
                     }
                 }
             }
